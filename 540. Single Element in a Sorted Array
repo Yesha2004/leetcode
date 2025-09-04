@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            
+            // Ensure mid is even (pointing to first of a pair)
+            if (mid % 2 == 1) mid--;
+            
+            if (nums[mid] == nums[mid + 1]) {
+                // Pair is valid, single is to the right
+                left = mid + 2;
+            } else {
+                // Pair is broken, single is at mid or to the left
+                right = mid;
+            }
+        }
+        
+        return nums[left];
+    }
+};
